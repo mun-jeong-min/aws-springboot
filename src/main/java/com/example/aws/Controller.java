@@ -11,4 +11,9 @@ public class Controller {
     public String get() {
         return "liverpool";
     }
+
+    @GetMapping("/aa")
+    public String post() {
+        return "Moon";
+    }
 }

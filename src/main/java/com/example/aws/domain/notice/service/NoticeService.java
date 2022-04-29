@@ -9,10 +9,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class NoticeService {
     private final NoticeRepository noticeRepository;
+
+    
 
     public void noticeCreate(NoticeCreateRequest request) {
         noticeRepository.save(
@@ -29,5 +33,10 @@ public class NoticeService {
                         .orElseThrow(() -> NoticeNotFoundException.EXCEPTION);
 
         notice.updateNotice(request.getTitle(), request.getContent());
+    }
+
+    @Transactional
+    public void deleteNotice(Long id) {
+        noticeRepository.deleteById(id);
     }
 }

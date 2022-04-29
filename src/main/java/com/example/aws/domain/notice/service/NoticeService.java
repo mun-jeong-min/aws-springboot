@@ -16,7 +16,9 @@ import java.util.List;
 public class NoticeService {
     private final NoticeRepository noticeRepository;
 
-    
+    public List<Notice> noticeRead() {
+        return (List<Notice>) noticeRepository.findAll();
+    }
 
     public void noticeCreate(NoticeCreateRequest request) {
         noticeRepository.save(

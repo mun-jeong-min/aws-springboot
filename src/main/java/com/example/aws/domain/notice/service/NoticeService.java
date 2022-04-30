@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -18,6 +19,10 @@ public class NoticeService {
 
     public List<Notice> noticeRead() {
         return (List<Notice>) noticeRepository.findAll();
+    }
+
+    public Optional<Notice> noticeReadOne(Long id) {
+        return noticeRepository.findNoticeById(id);
     }
 
     public void noticeCreate(NoticeCreateRequest request) {

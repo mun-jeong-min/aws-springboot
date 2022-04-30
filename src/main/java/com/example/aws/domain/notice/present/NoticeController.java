@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -31,6 +32,11 @@ public class NoticeController {
     @GetMapping("/get")
     public List<Notice> noticeRead() {
         return noticeService.noticeRead();
+    }
+
+    @GetMapping("/get/{id}")
+    public Optional<Notice> noticeReadOne(@PathVariable("id") Long id) {
+        return noticeService.noticeReadOne(id);
     }
 
     @DeleteMapping("/delete/{id}")

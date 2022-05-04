@@ -1,6 +1,7 @@
 package com.example.aws.global.error;
 
 import com.example.aws.global.error.exception.ProjectException;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -20,7 +21,7 @@ public class ExceptionHandler extends OncePerRequestFilter {
             ErrorResponse errorResponse = new ErrorResponse(e.getErrorCode().getMessage());
 
             response.setStatus(e.getErrorCode().getStatus());
-            response.setContentType("application/json");
+            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
             response.getWriter().write(errorResponse.convertToJson(errorResponse));
         }
     }

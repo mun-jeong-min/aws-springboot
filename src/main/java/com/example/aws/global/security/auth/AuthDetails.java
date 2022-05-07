@@ -1,14 +1,28 @@
 package com.example.aws.global.security.auth;
 
+import com.example.aws.domain.user.domain.User;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
+@Getter
+@RequiredArgsConstructor
 public class AuthDetails implements UserDetails {
+
+    private final User user;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List<GrantedAuthority> authorities = new ArrayList<>();
+
+        authorities.add(new SimpleGrantedAuthority(user.getAuthority().name()));
+        return authorities;
     }
 
     @Override
@@ -18,26 +32,26 @@ public class AuthDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return null;
+        return user.getAccountId();
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }

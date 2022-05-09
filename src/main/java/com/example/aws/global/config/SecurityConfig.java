@@ -1,5 +1,6 @@
 package com.example.aws.global.config;
 
+import com.example.aws.global.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +16,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private final JwtTokenProvider jwtTokenProvider;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -32,12 +36,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
 
-                .antMatchers(HttpMethod.POST, "/notice/").permitAll()
-                .antMatchers(HttpMethod.PUT, "/notice/{id}").permitAll()
-                .antMatchers(HttpMethod.GET, "/notice/").permitAll()
-                .antMatchers(HttpMethod.GET, "/notice/{id}").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/notice/{id}").permitAll()
+                .antMatchers(HttpMethod.POST, "/notice/").authenticated()
+                .antMatchers(HttpMethod.PUT, "/notice/{id}").authenticated()
+                .antMatchers(HttpMethod.GET, "/notice/").authenticated()
+                .antMatchers(HttpMethod.GET, "/notice/{id}").authenticated()
+                .antMatchers(HttpMethod.DELETE, "/notice/{id}").authenticated()
 
-                .anyRequest().authenticated();
+                .antMatchers(HttpMethod.POST, "/user/signup").permitAll()
+
+                .anyRequest().authenticated()
+
+                .and()
+                .apply(new FilterConfig(jwtTokenProvider));
     }
 }

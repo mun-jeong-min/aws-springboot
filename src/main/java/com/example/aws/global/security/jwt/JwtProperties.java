@@ -7,8 +7,8 @@ import org.springframework.boot.context.properties.ConstructorBinding;
 import java.util.Base64;
 
 @Getter
-@ConstructorBinding
 @ConfigurationProperties(prefix = "jwt")
+@ConstructorBinding
 public class JwtProperties {
     private final String secretKey;
     private final Long accessExp;

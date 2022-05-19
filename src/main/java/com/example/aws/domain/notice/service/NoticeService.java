@@ -5,6 +5,7 @@ import com.example.aws.domain.notice.domain.repository.NoticeRepository;
 import com.example.aws.domain.notice.exception.NoticeNotFoundException;
 import com.example.aws.domain.notice.present.dto.request.NoticeCreateRequest;
 import com.example.aws.domain.notice.present.dto.request.NoticeUpdateRequest;
+import com.example.aws.domain.notice.present.dto.response.NoticeResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,8 +18,8 @@ import java.util.Optional;
 public class NoticeService {
     private final NoticeRepository noticeRepository;
 
-    public List<Notice> noticeRead() {
-        return (List<Notice>) noticeRepository.findAll();
+    public NoticeResponse noticeRead() {
+        return (NoticeResponse) noticeRepository.findAll();
     }
 
     public Optional<Notice> noticeReadOne(Long id) {

@@ -3,6 +3,7 @@ package com.example.aws.domain.notice.present;
 import com.example.aws.domain.notice.domain.Notice;
 import com.example.aws.domain.notice.present.dto.request.NoticeCreateRequest;
 import com.example.aws.domain.notice.present.dto.request.NoticeUpdateRequest;
+import com.example.aws.domain.notice.present.dto.response.NoticeResponse;
 import com.example.aws.domain.notice.service.NoticeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -31,7 +32,7 @@ public class NoticeController {
     }
 
     @GetMapping("/")
-    public List<Notice> noticeRead() {
+    public NoticeResponse noticeRead() {
         return noticeService.noticeRead();
     }
 

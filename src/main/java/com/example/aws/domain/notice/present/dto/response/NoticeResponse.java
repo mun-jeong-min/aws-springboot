@@ -9,5 +9,5 @@ import java.util.List;
 @Getter
 @Builder
 public class NoticeResponse {
-    List<Notice> list;
+    private final List<Notice> list;
 }

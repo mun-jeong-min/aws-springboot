@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -38,7 +37,7 @@ public class NoticeService {
     @Transactional
     public void updateNotice(Long id, NoticeUpdateRequest request) {
         Notice notice = noticeRepository.findNoticeById(id)
-                        .orElseThrow(() -> NoticeNotFoundException.EXCEPTION);
+                .orElseThrow(() -> NoticeNotFoundException.EXCEPTION);
 
         notice.updateNotice(request.getTitle(), request.getContent());
     }
@@ -46,7 +45,7 @@ public class NoticeService {
     @Transactional
     public void deleteNotice(Long id) {
         Notice notice = noticeRepository.findNoticeById(id)
-                        .orElseThrow(() -> NoticeNotFoundException.EXCEPTION);
+                .orElseThrow(() -> NoticeNotFoundException.EXCEPTION);
 
         noticeRepository.delete(notice);
     }

@@ -5,7 +5,7 @@ import com.example.aws.domain.auth.domain.repository.RefreshTokenRepository;
 import com.example.aws.domain.auth.present.dto.response.TokenResponse;
 import com.example.aws.global.enums.Authority;
 import com.example.aws.global.exception.InvalidJwtException;
-import com.example.aws.global.exception.RefreshTokenNotFound;
+import com.example.aws.global.exception.RefreshTokenNotFoundException;
 import com.example.aws.global.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,11 +20,11 @@ public class AuthService {
 
     @Transactional
     public TokenResponse reissue(String refreshToken) {
-        if(!jwtTokenProvider.getTokenBody(refreshToken).get("typ").equals("refresh"))
+        if (!jwtTokenProvider.getTokenBody(refreshToken).get("typ").equals("refresh"))
             throw InvalidJwtException.EXCEPTION;
 
         RefreshToken updateRefreshToken = refreshTokenRepository.findByToken(refreshToken)
-                .orElseThrow(() -> RefreshTokenNotFound.EXCEPTION);
+                .orElseThrow(() -> RefreshTokenNotFoundException.EXCEPTION);
 
         String newRefreshToken = jwtTokenProvider.generateRefreshToken(updateRefreshToken.getAccountId());
         updateRefreshToken.updateToken(newRefreshToken);
@@ -33,8 +33,8 @@ public class AuthService {
 
         return TokenResponse.builder()
                 .accessToken(newAccessToken)
-                .refreshToken(refreshToken)
                 .authority(Authority.USER)
+                .refreshToken(refreshToken)
                 .build();
     }
 }

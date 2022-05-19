@@ -24,9 +24,8 @@ public class UserService {
     private final JwtTokenProvider jwtTokenProvider;
 
     public void signup(SignupRequest request) {
-        if(userRepository.findByAccountId(request.getAccountId()).isPresent()) {
+        if(userRepository.findByAccountId(request.getAccountId()).isPresent())
             throw UserExistsException.EXCEPTION;
-        }
 
         userRepository.save(
                 User.builder()

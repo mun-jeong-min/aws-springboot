@@ -24,7 +24,6 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     public TokenResponse login(@RequestBody @Valid SigninRequest request) {
         return userService.login(request);
     }

@@ -18,7 +18,8 @@ public enum ErrorCode {
 
     USER_EXIST(409,"USER-409-1","User Exist"),
 
-    INVALID_JWT(401, "JWT-401-1", "Invalid Jwt");
+    INVALID_JWT(401, "JWT-401-1", "Invalid Jwt"),
+    EXPIRED_JWT(401,"JWT-401-1","Expired Jwt");
 
     private final int status;
     private final String code;

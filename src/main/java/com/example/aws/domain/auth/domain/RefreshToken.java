@@ -1,14 +1,13 @@
 package com.example.aws.domain.auth.domain;
 
 import lombok.*;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.TimeToLive;
 import org.springframework.data.redis.core.index.Indexed;
 
-import javax.persistence.Id;
-
-@Builder
 @Getter
+@Builder
 @RedisHash
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)

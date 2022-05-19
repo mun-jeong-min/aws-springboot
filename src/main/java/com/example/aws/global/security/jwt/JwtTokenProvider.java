@@ -1,9 +1,11 @@
 package com.example.aws.global.security.jwt;
 
-import com.example.aws.domain.auth.domain.RefreshToken;
+import com.example  .aws.domain.auth.domain.RefreshToken;
 import com.example.aws.domain.auth.domain.repository.RefreshTokenRepository;
+import com.example.aws.global.exception.InvalidJwtException;
 import com.example.aws.global.security.auth.AuthDetailsService;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
@@ -62,8 +64,15 @@ public class JwtTokenProvider {
     }
 
     public Claims getTokenBody(String token) {
-        return Jwts.parser().setSigningKey(jwtProperties.getSecretKey())
-                .parseClaimsJws(token).getBody();
+        try {
+            return Jwts.parser().setSigningKey(jwtProperties.getSecretKey())
+                    .parseClaimsJws(token).getBody();
+        } catch (ExpiredJwtException e) {
+            throw com.example.aws.global.exception.ExpiredJwtException.EXCEPTION;
+        } catch (Exception e) {
+            throw InvalidJwtException.EXCEPTION;
+        }
+
     }
 
     private String getTokenSubject(String token) {

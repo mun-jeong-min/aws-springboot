@@ -23,6 +23,10 @@ public class Notice extends BaseTimeEntity {
     @Column
     private String content;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "Notice_Id")
+    private Notice notice;
+
     @Builder
     public Notice(String title, String content) {
         this.title = title;
